@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="contextId" prefHeight="780.0" prefWidth="400.0" style="-fx-background-color: #10173B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServerApplication.controller.LoginFormController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="100.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/chatLogo-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtUserName" layoutX="100.0" layoutY="419.0" prefHeight="31.0" prefWidth="210.0" promptText="User Name" />
+      <JFXButton fx:id="btnLogin" buttonType="RAISED" layoutX="148.0" layoutY="510.0" onAction="#loginButtonOnAction" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: #5468F2;" text="Login" textFill="WHITE" />
+   </children>
+</AnchorPane>
