@@ -3,6 +3,7 @@ package ServerApplication.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,12 +21,14 @@ public class ServerFormController implements Initializable {
     public TextArea txtAreaServerMsgWindow;
     public TextField txtServerMessage;
     public Button btnSend;
+    public Label txtServerName;
 
     static ServerSocket serverSocket;
     static Socket socket;
     static DataInputStream dataInputStream;
     static DataOutputStream dataOutputStream;
     public AnchorPane serverContext;
+
 
     String messageIn="";
     String newLine=System.lineSeparator();
@@ -40,12 +43,15 @@ public class ServerFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        serverContext.setStyle("-fx-color:rgb(239,242,255);" +
-                "-fx-background-color:rgb(15,125,242);" +
-                "-fx-background-radius:20px");
-        btnSend.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
+
         new Thread(()->{
+
+
             try {
+                serverContext.setStyle("-fx-color:rgb(239,242,255);" +
+                        "-fx-background-color:rgb(15,125,242);" +
+                        "-fx-background-radius:20px");
+                btnSend.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
 
                 serverSocket = new ServerSocket(5000);
                 System.out.println("Server Started");
