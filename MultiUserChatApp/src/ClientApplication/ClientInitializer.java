@@ -10,6 +10,7 @@ import java.io.IOException;
 public class ClientInitializer extends Application {
 
     public static void main(String[] args) {
+
         launch(args);
     }
 
