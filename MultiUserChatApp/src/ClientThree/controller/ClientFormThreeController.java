@@ -1,9 +1,8 @@
-package ClientTwo.controller;
+package ClientThree.controller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -18,15 +17,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class ClientTwoFormController {
-    public AnchorPane clientTwoContext;
-    public TextArea textAreaClientTwoWindow;
-    public TextField txtClientMsg;
-    public Button btnMsg;
+public class ClientFormThreeController {
+    public AnchorPane contextClientThree;
+    public TextArea txtAreaClientThree;
+    public TextField txtClientThreeMsg;
+    public Button btnClientThreeMsg;
     public JFXButton btnImg;
 
     static Socket socket = null;
@@ -36,16 +33,15 @@ public class ClientTwoFormController {
     public Image image;
     String newLine=System.lineSeparator();
 
-    public void btnClientTwoMsgOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnClientThreeOnAction(ActionEvent actionEvent) throws IOException {
         String reply="";
-        reply=txtClientMsg.getText();
+        reply=txtClientThreeMsg.getText();
         dataOutputStream.writeUTF(reply);
-        textAreaClientTwoWindow.appendText(newLine+"ClientTwo :"+reply.trim());
-        txtClientMsg.clear();
-
+        txtClientThreeMsg.appendText(newLine+"ClientThree :"+reply.trim());
+        txtClientThreeMsg.clear();
     }
 
-    public void imgOnClickAction(ActionEvent actionEvent) {
+    public void btnImgOnAction(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilterJPG
                 = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
@@ -89,8 +85,6 @@ public class ClientTwoFormController {
         }
 
     }
-
-
     public void initialize() {
         new Thread(new Runnable() {
 
@@ -105,11 +99,11 @@ public class ClientTwoFormController {
                     btnImg.setStyle("-fx-background-color: lightskyblue;"+"");
 
 
-                    clientTwoContext.setStyle("-fx-color:rgb(239,242,255);" +
+                    contextClientThree.setStyle("-fx-color:rgb(239,242,255);" +
                             "-fx-background-color:rgb(15,125,242);" +
                             "-fx-background-radius:20px");
-                    btnMsg.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
-                    socket = new Socket("localhost",1300);
+                    btnClientThreeMsg.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
+                    socket = new Socket("localhost",1400);
                     dataInputStream = new DataInputStream(socket.getInputStream());
                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
@@ -117,7 +111,7 @@ public class ClientTwoFormController {
 
                     while (!messageIn.equals("end")){
                         messageIn=dataInputStream.readUTF();
-                        textAreaClientTwoWindow.appendText(newLine+"Server : "+messageIn.trim());
+                        txtAreaClientThree.appendText(newLine+"Server : "+messageIn.trim());
                     }
                 } catch (IOException e) {
 

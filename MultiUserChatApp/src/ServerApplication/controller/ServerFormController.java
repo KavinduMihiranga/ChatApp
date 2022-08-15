@@ -37,6 +37,12 @@ public class ServerFormController implements Initializable {
     static Socket socketTwo;
     static DataInputStream dataInputStreamTwo;
     static DataOutputStream dataOutputStreamTwo;
+    //------------------------------------------------------Three
+    static ServerSocket serverSocketThree;
+    static Socket socketThree;
+    static DataInputStream dataInputStreamThree;
+    static DataOutputStream dataOutputStreamThree;
+    //------------------------------------------
     public TextArea txtAreaServerMsgWindow;
     public TextField txtServerMessage;
     public Button btnSend;
@@ -44,10 +50,13 @@ public class ServerFormController implements Initializable {
     public AnchorPane serverContext;
     public JFXButton btnImg;
     public VBox vbox_messages;
-    //------------------------------------------------------Two
+    //-----------------------------------
     String messageIn = "";
     String messageTwoIn = "";
+    String messageThreeIn = "";
     String newLine = System.lineSeparator();
+
+
     LoginFormController loginFormController = new LoginFormController();
     private ClientFormController clientFormController;
 
@@ -85,19 +94,24 @@ public class ServerFormController implements Initializable {
                 socket = serverSocket.accept();
                 System.out.println("Client Accepted!");
 
+                dataInputStream = new DataInputStream(socket.getInputStream());
+                dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 //---------------------------------------------Two
                 serverSocketTwo = new ServerSocket(1300);
                 System.out.println("Server Started");
                 socketTwo = serverSocketTwo.accept();
                 System.out.println("ClientTwo Accepted!");
-
-
-                dataInputStream = new DataInputStream(socket.getInputStream());
-                dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                //--------------------------------------------------------------------
                 dataInputStreamTwo = new DataInputStream(socketTwo.getInputStream());
                 dataOutputStreamTwo = new DataOutputStream(socketTwo.getOutputStream());
 
+                //--------------------------------------------------------------------Three
+                serverSocketThree = new ServerSocket(1400);
+                System.out.println("Server Started");
+                socketThree = serverSocketThree.accept();
+                System.out.println("ClientTwo Accepted!");
+                dataInputStreamThree = new DataInputStream(socketThree.getInputStream());
+                dataOutputStreamThree = new DataOutputStream(socketThree.getOutputStream());
+                //--------------------------------------------
 
                 while (!messageIn.equals("end")) {
                     messageIn = dataInputStream.readUTF();
@@ -106,6 +120,11 @@ public class ServerFormController implements Initializable {
                     while (!messageTwoIn.equals("end")) {
                         messageTwoIn = dataInputStreamTwo.readUTF();
                         txtAreaServerMsgWindow.appendText(newLine + "ClientTwo :" + messageTwoIn.trim());
+
+                    }
+                    while (!messageThreeIn.equals("end")) {
+                        messageThreeIn = dataInputStreamThree.readUTF();
+                        txtAreaServerMsgWindow.appendText(newLine + "ClientThree :" + messageThreeIn.trim());
 
                     }
 
