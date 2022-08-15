@@ -16,25 +16,28 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
 public class ClientFormController {
-    public TextField txtClientMessage;
-    public TextArea txtAreaClientMsgWindow;
-    public Button btnSend;
-
     static Socket socket = null;
     static DataOutputStream dataOutputStream;
     static DataInputStream dataInputStream;
+
+    public TextField txtClientMessage;
+    public TextArea txtAreaClientMsgWindow;
+    public Button btnSend;
     public AnchorPane clientContext;
     public JFXButton btnImg;
 
     public Image image;
-    String newLine=System.lineSeparator();
-    public void initialize(){
+    String newLine = System.lineSeparator();
+
+    String messageIn = "";
+
+
+
+    public void initialize() {
 
 
         new Thread(new Runnable() {
@@ -47,22 +50,21 @@ public class ClientFormController {
 //                    BufferedImage image=ImageIO.read(path);
 
 
-                    btnImg.setStyle("-fx-background-color: lightskyblue;"+"");
+                    btnImg.setStyle("-fx-background-color: lightskyblue;" + "");
 
 
                     clientContext.setStyle("-fx-color:rgb(239,242,255);" +
                             "-fx-background-color:rgb(15,125,242);" +
                             "-fx-background-radius:20px");
-                    btnSend.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
-                    socket = new Socket("localhost",1200);
+                    btnSend.setStyle("-fx-background-color: darkblue;" + "-fx-background-radius:20");
+
+                    socket = new Socket("localhost", 1200);
                     dataInputStream = new DataInputStream(socket.getInputStream());
                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
-                    String messageIn= "";
-
-                    while (!messageIn.equals("end")){
-                        messageIn=dataInputStream.readUTF();
-                        txtAreaClientMsgWindow.appendText(newLine+"Server : "+messageIn.trim());
+                    while (!messageIn.equals("end")) {
+                        messageIn = dataInputStream.readUTF();
+                        txtAreaClientMsgWindow.appendText(newLine + "Server : " + messageIn.trim());
                     }
                 } catch (IOException e) {
 
@@ -70,11 +72,12 @@ public class ClientFormController {
             }
         }).start();
     }
+
     public void clientSendMessageOnAction(ActionEvent actionEvent) throws IOException {
-        String reply="";
-        reply=txtClientMessage.getText();
+        String reply = "";
+        reply = txtClientMessage.getText();
         dataOutputStream.writeUTF(reply);
-        txtAreaClientMsgWindow.appendText(newLine+"Client :"+reply.trim());
+        txtAreaClientMsgWindow.appendText(newLine + "Client :" + reply.trim());
         txtClientMessage.clear();
     }
 
@@ -96,7 +99,7 @@ public class ClientFormController {
         try {
             BufferedImage bufferedImage = ImageIO.read(file);
             WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
-            HBox hBox=new HBox();
+            HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
             FileInputStream fin = new FileInputStream(file);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -108,10 +111,10 @@ public class ClientFormController {
             }
 
             //my code-------------------
-            dataInputStream=new DataInputStream(socket.getInputStream());
-            dataOutputStream=new DataOutputStream(socket.getOutputStream());
+            dataInputStream = new DataInputStream(socket.getInputStream());
+            dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
-            while (image!=null){
+            while (image != null) {
 
             }
 

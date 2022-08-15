@@ -109,16 +109,22 @@ public class ClientTwoFormController {
                             "-fx-background-color:rgb(15,125,242);" +
                             "-fx-background-radius:20px");
                     btnMsg.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
+
+                    //-------------------------------Server
                     socket = new Socket("localhost",1300);
                     dataInputStream = new DataInputStream(socket.getInputStream());
                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
                     String messageIn= "";
 
+                    //-------------------------------One
+
                     while (!messageIn.equals("end")){
                         messageIn=dataInputStream.readUTF();
                         textAreaClientTwoWindow.appendText(newLine+"Server : "+messageIn.trim());
+
                     }
+
                 } catch (IOException e) {
 
                 }

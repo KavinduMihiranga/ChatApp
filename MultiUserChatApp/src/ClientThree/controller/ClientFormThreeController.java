@@ -32,12 +32,13 @@ public class ClientFormThreeController {
 
     public Image image;
     String newLine=System.lineSeparator();
+    String messageIn= "";
 
     public void btnClientThreeOnAction(ActionEvent actionEvent) throws IOException {
         String reply="";
         reply=txtClientThreeMsg.getText();
         dataOutputStream.writeUTF(reply);
-        txtClientThreeMsg.appendText(newLine+"ClientThree :"+reply.trim());
+        txtAreaClientThree.appendText(newLine+"ClientThree :"+reply.trim());
         txtClientThreeMsg.clear();
     }
 
@@ -103,11 +104,11 @@ public class ClientFormThreeController {
                             "-fx-background-color:rgb(15,125,242);" +
                             "-fx-background-radius:20px");
                     btnClientThreeMsg.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
-                    socket = new Socket("localhost",1400);
+
+
+                    socket = new Socket("localhost",1350);
                     dataInputStream = new DataInputStream(socket.getInputStream());
                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
-
-                    String messageIn= "";
 
                     while (!messageIn.equals("end")){
                         messageIn=dataInputStream.readUTF();

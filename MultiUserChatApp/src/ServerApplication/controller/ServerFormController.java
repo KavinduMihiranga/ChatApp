@@ -100,15 +100,17 @@ public class ServerFormController implements Initializable {
                 serverSocketTwo = new ServerSocket(1300);
                 System.out.println("Server Started");
                 socketTwo = serverSocketTwo.accept();
+
                 System.out.println("ClientTwo Accepted!");
                 dataInputStreamTwo = new DataInputStream(socketTwo.getInputStream());
                 dataOutputStreamTwo = new DataOutputStream(socketTwo.getOutputStream());
 
                 //--------------------------------------------------------------------Three
-                serverSocketThree = new ServerSocket(1400);
+                serverSocketThree = new ServerSocket(1350);
                 System.out.println("Server Started");
                 socketThree = serverSocketThree.accept();
-                System.out.println("ClientTwo Accepted!");
+                System.out.println("ClientThree Accepted!");
+
                 dataInputStreamThree = new DataInputStream(socketThree.getInputStream());
                 dataOutputStreamThree = new DataOutputStream(socketThree.getOutputStream());
                 //--------------------------------------------
@@ -121,12 +123,13 @@ public class ServerFormController implements Initializable {
                         messageTwoIn = dataInputStreamTwo.readUTF();
                         txtAreaServerMsgWindow.appendText(newLine + "ClientTwo :" + messageTwoIn.trim());
 
-                    }
-                    while (!messageThreeIn.equals("end")) {
-                        messageThreeIn = dataInputStreamThree.readUTF();
-                        txtAreaServerMsgWindow.appendText(newLine + "ClientThree :" + messageThreeIn.trim());
+                        while (!messageThreeIn.equals("end")) {
+                            messageThreeIn = dataInputStreamThree.readUTF();
+                            txtAreaServerMsgWindow.appendText(newLine + "ClientThree :" + messageThreeIn.trim());
 
+                        }
                     }
+
 
                 }
 

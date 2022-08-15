@@ -17,7 +17,7 @@
       </Label>
       <TextArea fx:id="txtAreaServerMsgWindow" layoutX="14.0" layoutY="42.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
       <TextField fx:id="txtServerMessage" layoutX="14.0" layoutY="284.0" prefHeight="31.0" prefWidth="501.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="90.0" />
-      <Button fx:id="btnSend" layoutX="521.0" layoutY="284.0" mnemonicParsing="false" onAction="#ServerMessageOnAction" prefHeight="30.0" prefWidth="75.0" text="Send" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="5.0" />
+      <Button fx:id="btnSend" layoutX="521.0" layoutY="284.0" mnemonicParsing="false" onAction="#ServerMessageOnAction" prefHeight="30.0" prefWidth="75.0" text="Send" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="5.0" />
       <JFXButton fx:id="btnImg" buttonType="RAISED" layoutX="245.0" layoutY="659.0" onAction="#imgButtonOnAction" text="Img" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="660.0" />
    </children>
 </AnchorPane>
