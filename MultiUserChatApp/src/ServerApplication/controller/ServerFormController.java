@@ -15,9 +15,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
@@ -26,69 +23,101 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.nio.ByteBuffer;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 public class ServerFormController implements Initializable {
-    public TextArea txtAreaServerMsgWindow;
-    public TextField txtServerMessage;
-    public Button btnSend;
-    public Label txtServerName;
-
+    //-----------------------------------------------One
     static ServerSocket serverSocket;
     static Socket socket;
     static DataInputStream dataInputStream;
     static DataOutputStream dataOutputStream;
+    //---------------------------------------------------------------------Two
+    static ServerSocket serverSocketTwo;
+    static Socket socketTwo;
+    static DataInputStream dataInputStreamTwo;
+    static DataOutputStream dataOutputStreamTwo;
+    public TextArea txtAreaServerMsgWindow;
+    public TextField txtServerMessage;
+    public Button btnSend;
+    public Label txtServerName;
     public AnchorPane serverContext;
     public JFXButton btnImg;
-
-
-    String messageIn="";
-    String newLine=System.lineSeparator();
-
     public VBox vbox_messages;
+    //------------------------------------------------------Two
+    String messageIn = "";
+    String messageTwoIn = "";
+    String newLine = System.lineSeparator();
+    LoginFormController loginFormController = new LoginFormController();
     private ClientFormController clientFormController;
-
-    LoginFormController loginFormController=new LoginFormController();
 
     public void ServerMessageOnAction(ActionEvent actionEvent) throws IOException {
 
-
-        HBox hBox=new HBox();
+        HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
 
-        hBox.setPadding(new Insets(5,5,5,10));
+        hBox.setPadding(new Insets(5, 5, 5, 10));
         hBox.setStyle("-fx-color:rgb(239,242,255);" +
                 "-fx-background-color:rgb(15,125,242);" +
                 "-fx-background-radius:20px");
+//        hBox.getChildren().add(txtAreaServerMsgWindow);
 
         dataOutputStream.writeUTF(txtServerMessage.getText().trim());
-        txtAreaServerMsgWindow.appendText(newLine+"Server"+" : "+txtServerMessage.getText().trim());
+        txtAreaServerMsgWindow.appendText(newLine + "Server" + " : " + txtServerMessage.getText().trim());
         txtServerMessage.clear();
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        new Thread(()->{
+        new Thread(() -> {
             try {
                 serverContext.setStyle("-fx-color:rgb(239,242,255);" +
                         "-fx-background-color:rgb(15,125,242);" +
                         "-fx-background-radius:20px");
-                btnSend.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
+                btnSend.setStyle("-fx-background-color: darkblue;" + "-fx-background-radius:20");
+
+                btnImg.setStyle("-fx-background-color: lightskyblue");
 
                 serverSocket = new ServerSocket(1200);
                 System.out.println("Server Started");
-                socket=serverSocket.accept();
+                socket = serverSocket.accept();
                 System.out.println("Client Accepted!");
+
+                //---------------------------------------------Two
+                serverSocketTwo = new ServerSocket(1300);
+                System.out.println("Server Started");
+                socketTwo = serverSocketTwo.accept();
+                System.out.println("ClientTwo Accepted!");
+
 
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                while(!messageIn.equals("end")){
+                //--------------------------------------------------------------------
+                dataInputStreamTwo = new DataInputStream(socketTwo.getInputStream());
+                dataOutputStreamTwo = new DataOutputStream(socketTwo.getOutputStream());
+
+
+                while (!messageIn.equals("end")) {
                     messageIn = dataInputStream.readUTF();
-                    txtAreaServerMsgWindow.appendText(newLine+"Client :"+messageIn.trim());
+                    txtAreaServerMsgWindow.appendText(newLine + "Client :" + messageIn.trim());
+
+                    while (!messageTwoIn.equals("end")) {
+                        messageTwoIn = dataInputStreamTwo.readUTF();
+                        txtAreaServerMsgWindow.appendText(newLine + "ClientTwo :" + messageTwoIn.trim());
+
+                    }
+
                 }
+
+//                while(!messageTwoIn.equals("end")){
+//                    messageTwoIn = dataInputStreamTwo.readUTF();
+//                    txtAreaServerMsgWindow.appendText(newLine+"ClientTwo :"+messageTwoIn.trim());
+//
+//                }
+
+
             } catch (IOException e) {
             }
         }).start();
@@ -112,7 +141,7 @@ public class ServerFormController implements Initializable {
         try {
             BufferedImage bufferedImage = ImageIO.read(file);
             WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
-            HBox hBox=new HBox();
+            HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
 
             FileInputStream fin = new FileInputStream(file);

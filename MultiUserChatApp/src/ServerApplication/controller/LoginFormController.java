@@ -15,6 +15,15 @@ import java.util.ResourceBundle;
 
 public class LoginFormController implements Initializable {
     public JFXTextField txtUserName;
+
+    public JFXTextField getTxtUserName() {
+        return txtUserName;
+    }
+
+    public void setTxtUserName(JFXTextField txtUserName) {
+        this.txtUserName = txtUserName;
+    }
+
     public JFXButton btnLogin;
     public AnchorPane contextId;
 
@@ -25,6 +34,7 @@ public class LoginFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnLogin.setStyle("-fx-background-color: #5468F2;"+"-fx-background-radius:100");
+        btnLogin.setStyle("-fx-background-color: #5468F2;" + "-fx-background-radius:100");
+        txtUserName.setStyle("-fx-text-fill: white");
     }
 }

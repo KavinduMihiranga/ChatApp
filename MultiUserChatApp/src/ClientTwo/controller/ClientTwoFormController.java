@@ -1,8 +1,9 @@
-package ClientApplication.controller;
+package ClientTwo.controller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -16,69 +17,35 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class ClientFormController {
-    public TextField txtClientMessage;
-    public TextArea txtAreaClientMsgWindow;
-    public Button btnSend;
+public class ClientTwoFormController {
+    public AnchorPane clientTwoContext;
+    public TextArea textAreaClientTwoWindow;
+    public TextField txtClientMsg;
+    public Button btnMsg;
+    public JFXButton btnImg;
 
     static Socket socket = null;
     static DataOutputStream dataOutputStream;
     static DataInputStream dataInputStream;
-    public AnchorPane clientContext;
-    public JFXButton btnImg;
 
     public Image image;
     String newLine=System.lineSeparator();
-    public void initialize(){
 
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-
-//                    File path=new File("ServerApplication/assets/img_550783.png");
-//                    BufferedImage image=ImageIO.read(path);
-
-
-                    btnImg.setStyle("-fx-background-color: lightskyblue;"+"");
-
-
-                    clientContext.setStyle("-fx-color:rgb(239,242,255);" +
-                            "-fx-background-color:rgb(15,125,242);" +
-                            "-fx-background-radius:20px");
-                    btnSend.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
-                    socket = new Socket("localhost",1200);
-                    dataInputStream = new DataInputStream(socket.getInputStream());
-                    dataOutputStream = new DataOutputStream(socket.getOutputStream());
-
-                    String messageIn= "";
-
-                    while (!messageIn.equals("end")){
-                        messageIn=dataInputStream.readUTF();
-                        txtAreaClientMsgWindow.appendText(newLine+"Server : "+messageIn.trim());
-                    }
-                } catch (IOException e) {
-
-                }
-            }
-        }).start();
-    }
-    public void clientSendMessageOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnClientTwoMsgOnAction(ActionEvent actionEvent) throws IOException {
         String reply="";
-        reply=txtClientMessage.getText();
+        reply=txtClientMsg.getText();
         dataOutputStream.writeUTF(reply);
-        txtAreaClientMsgWindow.appendText(newLine+"Client :"+reply.trim());
-        txtClientMessage.clear();
+        textAreaClientTwoWindow.appendText(newLine+"ClientTwo :"+reply.trim());
+        txtClientMsg.clear();
+
     }
 
-    public void imgOnAction(ActionEvent actionEvent) throws IOException {
+    public void imgOnClickAction(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilterJPG
                 = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
@@ -120,5 +87,43 @@ public class ClientFormController {
         } catch (IOException ex) {
             Logger.getLogger("ss");
         }
+
+    }
+
+
+    public void initialize() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+
+//                    File path=new File("ServerApplication/assets/img_550783.png");
+//                    BufferedImage image=ImageIO.read(path);
+
+
+                    btnImg.setStyle("-fx-background-color: lightskyblue;"+"");
+
+
+                    clientTwoContext.setStyle("-fx-color:rgb(239,242,255);" +
+                            "-fx-background-color:rgb(15,125,242);" +
+                            "-fx-background-radius:20px");
+                    btnMsg.setStyle("-fx-background-color: darkblue;"+"-fx-background-radius:20");
+                    socket = new Socket("localhost",1300);
+                    dataInputStream = new DataInputStream(socket.getInputStream());
+                    dataOutputStream = new DataOutputStream(socket.getOutputStream());
+
+                    String messageIn= "";
+
+                    while (!messageIn.equals("end")){
+                        messageIn=dataInputStream.readUTF();
+                        textAreaClientTwoWindow.appendText(newLine+"ClientTwo : "+messageIn.trim());
+                    }
+                } catch (IOException e) {
+
+                }
+            }
+        }).start();
+
     }
 }
