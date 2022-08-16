@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="clientTwoContext" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientTwo.controller.ClientTwoFormController">
    <children>
       <TextArea fx:id="textAreaClientTwoWindow" layoutX="14.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
@@ -19,6 +18,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnImg" buttonType="RAISED" layoutX="245.0" layoutY="659.0" onAction="#imgOnClickAction" text="Img" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="660.0" />
+      <JFXButton fx:id="btnImg" buttonType="RAISED" layoutX="245.0" layoutY="659.0" onAction="#imgOnClickAction" text="Img" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="90.0" />
    </children>
 </AnchorPane>

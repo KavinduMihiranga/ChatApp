@@ -65,6 +65,7 @@ public class ClientFormController {
                     while (!messageIn.equals("end")) {
                         messageIn = dataInputStream.readUTF();
                         txtAreaClientMsgWindow.appendText(newLine + "Server : " + messageIn.trim());
+
                     }
                 } catch (IOException e) {
 

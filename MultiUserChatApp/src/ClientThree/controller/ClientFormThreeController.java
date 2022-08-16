@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
@@ -113,6 +114,7 @@ public class ClientFormThreeController {
                     while (!messageIn.equals("end")){
                         messageIn=dataInputStream.readUTF();
                         txtAreaClientThree.appendText(newLine+"Server : "+messageIn.trim());
+
                     }
                 } catch (IOException e) {
 
